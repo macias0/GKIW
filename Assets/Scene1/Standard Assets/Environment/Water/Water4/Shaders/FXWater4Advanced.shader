@@ -1,3 +1,6 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_Object2World' with '_Object2World'
 
 Shader "FX/Water4" {
@@ -132,7 +135,7 @@ CGINCLUDE
 	{
 		v2f o;
 		
-		half3 worldSpaceVertex = mul(_Object2World,(v.vertex)).xyz;
+		half3 worldSpaceVertex = mul(unity_ObjectToWorld,(v.vertex)).xyz;
 		half3 vtxForAni = (worldSpaceVertex).xzz;
 
 		half3 nrml;
@@ -150,13 +153,13 @@ CGINCLUDE
 		v.vertex.xyz += offsets;
 		
 		// one can also use worldSpaceVertex.xz here (speed!), albeit it'll end up a little skewed
-		half2 tileableUv = mul(_Object2World,(v.vertex)).xz;
+		half2 tileableUv = mul(unity_ObjectToWorld,(v.vertex)).xz;
 		
 		o.bumpCoords.xyzw = (tileableUv.xyxy + _Time.xxxx * _BumpDirection.xyzw) * _BumpTiling.xyzw;
 
 		o.viewInterpolator.xyz = worldSpaceVertex - _WorldSpaceCameraPos;
 
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 
 		ComputeScreenAndGrabPassPos(o.pos, o.screenPos, o.grabPassPos);
 		
@@ -237,7 +240,7 @@ CGINCLUDE
 	{
 		v2f_noGrab o;
 		
-		half3 worldSpaceVertex = mul(_Object2World,(v.vertex)).xyz;
+		half3 worldSpaceVertex = mul(unity_ObjectToWorld,(v.vertex)).xyz;
 		half3 vtxForAni = (worldSpaceVertex).xzz;
 
 		half3 nrml;
@@ -255,12 +258,12 @@ CGINCLUDE
 		v.vertex.xyz += offsets;
 		
 		// one can also use worldSpaceVertex.xz here (speed!), albeit it'll end up a little skewed
-		half2 tileableUv = mul(_Object2World,v.vertex).xz;
+		half2 tileableUv = mul(unity_ObjectToWorld,v.vertex).xz;
 		o.bumpCoords.xyzw = (tileableUv.xyxy + _Time.xxxx * _BumpDirection.xyzw) * _BumpTiling.xyzw;
 
 		o.viewInterpolator.xyz = worldSpaceVertex - _WorldSpaceCameraPos;
 
-		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 
 		o.screenPos = ComputeScreenPos(o.pos);
 		
@@ -323,14 +326,14 @@ CGINCLUDE
 	{
 		v2f_simple o;
 		
-		half3 worldSpaceVertex = mul(_Object2World, v.vertex).xyz;
+		half3 worldSpaceVertex = mul(unity_ObjectToWorld, v.vertex).xyz;
 		half2 tileableUv = worldSpaceVertex.xz;
 
 		o.bumpCoords.xyzw = (tileableUv.xyxy + _Time.xxxx * _BumpDirection.xyzw) * _BumpTiling.xyzw;
 
 		o.viewInterpolator.xyz = worldSpaceVertex-_WorldSpaceCameraPos;
 		
-		o.pos = mul(UNITY_MATRIX_MVP,  v.vertex);
+		o.pos = UnityObjectToClipPos(v.vertex);
 		
 		o.viewInterpolator.w = 1;//GetDistanceFadeout(ComputeScreenPos(o.pos).w, DISTANCE_SCALE);
 		
