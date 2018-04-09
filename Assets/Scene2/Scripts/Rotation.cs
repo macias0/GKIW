@@ -5,6 +5,10 @@ public class Rotation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+
+		Debug.Log ("Przes * Obrot\n" + Matrix3D.Translate (-2, 0, 0) * Matrix3D.RotateX (90) * new Vector4(0, 0, 0, 1));
+		Debug.Log("Obrot * Przes\n" + Matrix3D.RotateX(90) * Matrix3D.Translate(-2, 0, 0) * new Vector4(0, 0, 0, 1));
   //      Matrix3D parent = Matrix3D.Translate(5, 0, 5);
 
 //        Matrix3D przes = Matrix3D.Translate(5, 0, 0);
@@ -47,19 +51,20 @@ public class Rotation : MonoBehaviour {
     {
         if (!center)
             return Matrix3D.Translate(transform.position.x, transform.position.y, transform.position.z);
-		Debug.Log ("GetRotationMatrix: \n" + center.GetRotationMatrix ());
-		return center.GetMatrix() * center.GetRotationMatrix() * Matrix3D.RotateZ(angle) * Matrix3D.Translate(r * scale, 0, r / scale) ;
-    }
+		//Debug.Log ("GetRotationMatrix: \n" + center.GetRotationMatrix ());
+		//return center.GetMatrix() * center.GetRotationMatrix() * Matrix3D.RotateZ(angle) * Matrix3D.Translate(r * scale, 0, r / scale) ;
+		return center.GetMatrix() * center.GetRotationMatrix() * Matrix3D.Translate(r * Mathf.Cos(Mathf.Deg2Rad * angle) * scale, 0, r * Mathf.Sin(Mathf.Deg2Rad * angle) );
+	}
 
     public Matrix3D GetRotationMatrix()
     {
 		//Debug.Log ("xyz: " + transform.eulerAngles.x + ", " + transform.eulerAngles.y + ", " + transform.eulerAngles.z);
-		return Matrix3D.RotateX(transform.eulerAngles.x) * Matrix3D.RotateY(transform.eulerAngles.y) * Matrix3D.RotateZ(transform.eulerAngles.z);
+		return  Matrix3D.RotateZ(transform.eulerAngles.z) * Matrix3D.RotateY(transform.eulerAngles.y) * Matrix3D.RotateX(transform.eulerAngles.x) ;
     }
 
 
     public Rotation center = null;
-    public float r;
+    public float r = 4.0f;
     public float speed;
     public float scale = 1.0f;
 
