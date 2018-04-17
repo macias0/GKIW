@@ -31,7 +31,7 @@ public class ModelController : MonoBehaviour {
 			if (Input.GetAxis ("Vertical") > 0) 
 			{
 				if (Input.GetKey (KeyCode.LeftShift)) {
-					Debug.Log ("Odpalam sprint");
+					//Debug.Log ("Odpalam sprint");
 					moveDirection *= 2.0F;
 					animator.SetFloat ("speed", 4.0F);
 				} else {

@@ -15,9 +15,19 @@ public class EnemyAnimationController : MonoBehaviour {
 
 
 		Vector3 targetDir = path.path[pathIndex] - transform.position;
-		Debug.Log("Kat wczesniej: " + Vector3.Angle(targetDir, transform.forward));
+
+		if (Vector3.Angle (targetDir, transform.forward) > boundaryAngle) {
+//			Debug.Log ("Zatrzymuje animacje, czekam na obrot");
+			animator.SetFloat ("speed", 0.0F);
+			rotating = true;
+		} else
+			rotating = false;
+
 		float step =  rotationSpeed * Time.deltaTime;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, targetDir, step, 0.0F);
+
+		//ignore Y
+		newDir.y = 0.0F;
 
 		//Debug.DrawRay (transform.position, newDir, Color.red);
 
@@ -26,30 +36,22 @@ public class EnemyAnimationController : MonoBehaviour {
 		//		if (Vector3.Angle (targetDir, transform.forward) <= minAngle ) 
 		//		{
 
+		if (!rotating) {
 
-		if (Vector3.Distance (transform.position, path.path [pathIndex]) > minDistance && !rotating) {
-			animator.SetFloat ("speed",2.0F);
-		} else {
-			
-			//dotarlem do punktu
-			//TODO DAĆ DO WYŻEJ
-			Debug.Log("Dotarlem do punktu, kat: " + Vector3.Angle (targetDir, transform.forward));
-			if (Vector3.Angle (targetDir, transform.forward) > boundaryAngle) {
-				Debug.Log ("Zatrzymuje animacje, czekam na obrot");
-				animator.SetFloat ("speed", 0.0F);
-				rotating = true;
-				return;
-			} else
-				rotating = false;
+			if (Vector3.Distance (transform.position, path.path [pathIndex]) > minDistance) {
+				
+				animator.SetFloat ("speed", 2.0F);
+			} else {
+				
 
-
-			if (pathIndex + 1 < path.path.Count)
-				pathIndex++;
-			else {
-				if(loop)
-					pathIndex = 0;
-				else
-					animator.SetFloat ("speed",0.0F);
+				if (pathIndex + 1 < path.path.Count)
+					pathIndex++;
+				else {
+					if (loop)
+						pathIndex = 0;
+					else
+						animator.SetFloat ("speed", 0.0F);
+				}
 			}
 		}
 		
