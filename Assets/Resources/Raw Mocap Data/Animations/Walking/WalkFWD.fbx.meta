@@ -173,7 +173,9 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'LeftLeg'
+      : position error = 7.696520 mm\n\t'LeftFoot' : position error = 15.233778 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -210,7 +212,55 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.11629937
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 49b5362a233b4e44986a8216ae40d91e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.30311766
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 49b5362a233b4e44986a8216ae40d91e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.46724537
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 49b5362a233b4e44986a8216ae40d91e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6594712
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 49b5362a233b4e44986a8216ae40d91e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.79626584
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 49b5362a233b4e44986a8216ae40d91e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.96703506
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 49b5362a233b4e44986a8216ae40d91e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

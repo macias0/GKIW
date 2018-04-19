@@ -6,9 +6,9 @@ public class SwitchPlayers : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player2.SetActive (false);
-		player3.SetActive (false);
-		activePlayer = player1;
+		for(int i=1; i<players.Length; ++i)
+			players[i].SetActive(false);
+		activePlayer = players [0];
 	}
 
 	// Update is called once per frame
@@ -18,15 +18,15 @@ public class SwitchPlayers : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Alpha1)) 
 		{
-			nextActivePlayer = player1;
+			nextActivePlayer = players [0];
 		} 
 		else if (Input.GetKeyDown (KeyCode.Alpha2)) 
 		{
-			nextActivePlayer = player2;
+			nextActivePlayer = players [1];
 		}
 		else if (Input.GetKeyDown (KeyCode.Alpha3)) 
 		{
-			nextActivePlayer = player3;
+			nextActivePlayer = players [2];
 		}
 
 		if (nextActivePlayer != activePlayer) {
@@ -39,9 +39,8 @@ public class SwitchPlayers : MonoBehaviour {
 	}
 
 
-	private GameObject activePlayer = null;
+	public GameObject activePlayer = null;
 
-	public GameObject player1 = null;
-	public GameObject player2 = null;
-	public GameObject player3 = null;
+	public GameObject[] players;
+
 }

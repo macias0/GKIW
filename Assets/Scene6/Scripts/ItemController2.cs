@@ -16,16 +16,24 @@ public class ItemController2 : MonoBehaviour {
 
 			Debug.Log ("Podnosze item");
 
-			heldItem = other.gameObject;
-			heldItem.SetActive (false);
+			takeItem (other.gameObject);
 		}
-		else if (heldItem == other.gameObject) {
+		else if(heldItem == other.gameObject) {
 			Debug.Log ("Wyrzucam item");
 			heldItem = null;
 		}
 
+
 		updateSprite ();
 
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		Debug.Log ("Item: TriggerExit: " + other.gameObject.name);
+//		if (other.gameObject.tag == "Item")
+//			other.gameObject.GetComponent<SphereCollider> ().enabled = true;
+		//updateSprite ();
 	}
 
 
@@ -47,11 +55,33 @@ public class ItemController2 : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.G) && heldItem != null) {
 
-			heldItem.SetActive (true);
-			heldItem.transform.position = transform.position;//+ transform.forward * 2.0F;
-			Debug.Log("Height of object: " + transform.lossyScale.y);
 
+			dropItem ();
 //			heldItem = null;
+		}
+	}
+
+
+	public void takeItem(GameObject item)
+	{
+		heldItem = item;
+		heldItem.SetActive (false);
+	}
+
+
+	public void dropItem()
+	{
+		if (heldItem) {
+			RaycastHit hit;
+			if (Physics.Raycast (transform.position, Vector3.down, out hit, Mathf.Infinity)) {
+				Debug.DrawRay (transform.position, Vector3.down * hit.distance, Color.yellow, 10);
+				//Debug.Log ("HIT");
+				heldItem.transform.position = hit.point + new Vector3 (0, heldItem.GetComponent<Renderer> ().bounds.size.x / 2, 0);
+				//Debug.Log ("Item size" + heldItem.GetComponent<Renderer>().bounds.size);
+			} else
+				heldItem.transform.position = transform.position;//+ transform.forward * 2.0F;
+
+			heldItem.SetActive (true);
 		}
 	}
 
@@ -66,6 +96,11 @@ public class ItemController2 : MonoBehaviour {
 		Debug.Log ("onDisable");
 	}
 
+
+	public GameObject getHeldItem()
+	{
+		return heldItem;
+	}
 
 	private GameObject heldItem = null;
 	public GameObject itemSprite = null;
