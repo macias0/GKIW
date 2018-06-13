@@ -10,7 +10,13 @@ public class BulletController3 : MonoBehaviour {
 	{
 		if (collision.gameObject.tag == "Enemy") {
 			Debug.Log ("Trafiam w przeciwnika!");
-			collision.gameObject.GetComponent<EnemyHealthController3> ().health -= 50.0F;
+			EnemyHealthController3 ehc3 = collision.gameObject.GetComponent<EnemyHealthController3> ();
+			if(ehc3)
+				ehc3.health -= 50.0F;
+			EnemyHealthController2 ehc2 = collision.gameObject.GetComponent<EnemyHealthController2> ();
+			if (ehc2)
+				ehc2.health -= 50;
+		
 		}
 
 		Destroy (gameObject);

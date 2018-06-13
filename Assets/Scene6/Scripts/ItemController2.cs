@@ -102,6 +102,11 @@ public class ItemController2 : MonoBehaviour {
 		return heldItem;
 	}
 
+	public bool hasBow()
+	{
+		return heldItem != null && heldItem.name == "Bow";
+	}
+
 	private GameObject heldItem = null;
 	public GameObject itemSprite = null;
 }

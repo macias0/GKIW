@@ -31,13 +31,22 @@ public class PlayerController2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 euler = transform.localRotation.eulerAngles;
-		if (Input.GetKey (KeyCode.Z)) 
+		if (Input.GetKey (KeyCode.Z)) //head down
 		{
-			euler.x += rotationSpeed * Time.deltaTime;
+			if( euler.x < 30.0F || ( euler.x >= 298.0F  )  )
+				euler.x += rotationSpeed * Time.deltaTime;
+			if(euler.x > 30.0F && euler.x < 90.0F)
+				euler.x = 30.0F;
 		}
-		if (Input.GetKey (KeyCode.X)) 
+		if (Input.GetKey (KeyCode.X)) //head up
 		{
-			euler.x -= rotationSpeed * Time.deltaTime;
+			if (euler.x > 300.0F || euler.x <= 32.0F) 
+			{
+				Debug.Log ("glowa w gore");
+				euler.x -= rotationSpeed * Time.deltaTime;
+			}
+			if (euler.x < 300.0F && euler.x > 180)
+				euler.x = 300.0F;
 		}
 
 		if (Input.GetKey (KeyCode.Q)) 
@@ -48,8 +57,7 @@ public class PlayerController2 : MonoBehaviour {
 		{
 			euler.y += rotationSpeed * Time.deltaTime;
 		}
-		if(transform.localRotation.eulerAngles != euler)
-			transform.localRotation = Quaternion.Euler (euler);
+		transform.localRotation = Quaternion.Euler (euler);
 	}
 
 

@@ -6,7 +6,8 @@ public class PlayersController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		player1.SetActive (true);
+		player2.SetActive (false);
 	}
 	
 	// Update is called once per frame

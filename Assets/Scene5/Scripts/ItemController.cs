@@ -36,6 +36,9 @@ public class ItemController : MonoBehaviour {
 		}
 	}
 
-
+	public bool hasItem()
+	{
+		return heldItem != null;
+	}
 	private GameObject heldItem = null;
 }
